@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
 import 'package:maaap/home.dart';
+import 'package:maaap/signin.dart';
 import 'package:maaap/signup.dart';
 
 class Welcome extends StatefulWidget {
@@ -14,10 +15,11 @@ class _WelcomeState extends State<Welcome> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      
       body: Column(mainAxisAlignment: MainAxisAlignment.end, children: [
         InkWell(
           onTap: (){
-            Navigator.of(context).push(MaterialPageRoute(builder: (context) => HomeScreen()));
+            Navigator.of(context).push(MaterialPageRoute(builder: (context) => Signin()));
           },
           child: Container(
             child: Center(child: Text('Sign In',style: TextStyle(fontSize: 16,),)),
@@ -50,3 +52,4 @@ class _WelcomeState extends State<Welcome> {
     );
   }
 }
+

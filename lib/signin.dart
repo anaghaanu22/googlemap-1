@@ -1,45 +1,40 @@
 import 'dart:convert';
-import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:http/http.dart';
 import 'package:lottie/lottie.dart';
-import 'package:maaap/signin.dart';
-import 'const.dart';
-import 'home.dart';
+import 'package:maaap/home.dart';
 
-class Signup extends StatefulWidget {
-  const Signup({Key?
-  
-   key}) : super(key: key);
+import 'const.dart';
+
+class Signin extends StatefulWidget {
+  const Signin({Key? key}) : super(key: key);
 
   @override
-  State<Signup> createState() => _SignupState();
+  State<Signin> createState() => _SigninState();
 }
 
-class _SignupState extends State<Signup> {
+class _SigninState extends State<Signin> {
   final _formKey = GlobalKey<FormState>();
-  final name = TextEditingController();
   final email = TextEditingController();
-  final mobile = TextEditingController();
   final password = TextEditingController();
 
-  Future<void> addData() async {
+  Future<void> getData() async {
     if (_formKey.currentState!.validate()) {
       var data = {
-        'name': name.text,
         'email': email.text,
-        'mobile': mobile.text,
         'password': password.text,
       };
-      var response = await post(Uri.parse('${Con.url}register.php'), body: data);
+      var response = await post(Uri.parse('${Con.url}login.php'), body: data);
+      print(response.body);
       var res = jsonDecode(response.body);
-      if (res['message'] == 'Added') {
-        Fluttertoast.showToast(msg: 'Registration Successful...');
-        Navigator.push(context, MaterialPageRoute(builder: (context) {
-          return Signin();
-        }));
+      if (res['message'] == 'login') {
+        Fluttertoast.showToast(msg: 'Login Successfully...');
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => HomeScreen()),
+        );
       } else {
         Fluttertoast.showToast(msg: 'Something went wrong...!');
       }
@@ -55,24 +50,8 @@ class _SignupState extends State<Signup> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              SizedBox(height: 60),
+              SizedBox(height: 180),
               Lottie.asset('assets/img/signup.json', height: 150, width: 150),
-              Padding(
-                padding: const EdgeInsets.only(left: 30, right: 30, top: 15),
-                child: TextFormField(
-                  controller: name,
-                  decoration: InputDecoration(
-                    border: OutlineInputBorder(),
-                    labelText: 'Name',
-                  ),
-                  validator: (value) {
-                    if (value!.isEmpty) {
-                      return 'Please enter your name';
-                    }
-                    return null;
-                  },
-                ),
-              ),
               Padding(
                 padding: const EdgeInsets.only(left: 30, right: 30, top: 15),
                 child: TextFormField(
@@ -84,22 +63,6 @@ class _SignupState extends State<Signup> {
                   validator: (value) {
                     if (value!.isEmpty) {
                       return 'Please enter your email';
-                    }
-                    return null;
-                  },
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.only(left: 30, right: 30, top: 15),
-                child: TextFormField(
-                  controller: mobile,
-                  decoration: InputDecoration(
-                    border: OutlineInputBorder(),
-                    labelText: 'Mobile',
-                  ),
-                  validator: (value) {
-                    if (value!.isEmpty) {
-                      return 'Please enter your mobile number';
                     }
                     return null;
                   },
@@ -127,11 +90,11 @@ class _SignupState extends State<Signup> {
                 ),
               ),
               InkWell(
-                onTap: addData,
+                onTap: getData,
                 child: Container(
                   child: Center(
                     child: Text(
-                      'Register',
+                      'Sign In',
                       style: TextStyle(fontSize: 16),
                     ),
                   ),

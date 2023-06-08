@@ -18,7 +18,7 @@ class _HomeScreenState extends State<HomeScreen> {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Color.fromARGB(255, 232, 153, 148),
-        title: const Text("Flutter Google Maps"),
+        title: const Text("Welcome"),
         centerTitle: true,
       ),
       body: SizedBox(

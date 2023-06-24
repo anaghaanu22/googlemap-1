@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
+import 'package:maaap/home.dart';
 
 class Pages3 extends StatefulWidget {
   const Pages3({super.key});
@@ -67,7 +68,9 @@ class _Pages3State extends State<Pages3> {
                  children: [
                    Padding(
                      padding: const EdgeInsets.all(10.0),
-                     child: ElevatedButton(onPressed: (){}, child: Row(
+                     child: ElevatedButton(onPressed: (){
+                       Navigator.push(context, MaterialPageRoute(builder: (context)=>HomeScreen()));
+                     }, child: Row(
                        children: [
                          Text('Back to home  '),
                          Icon(Icons.home),
